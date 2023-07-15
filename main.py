@@ -37,8 +37,7 @@ def capture_async(
     fcm_registration_token: Annotated[str, Form()],
     to_play: Annotated[Color, Form()] = Color.BLACK,
 ):
-    filename = Path(image.filename)
-    output_path = settings.IMAGES_DIR / filename
+    output_path = settings.IMAGES_DIR / image.filename
     with output_path.open("wb") as output_file:
         output_file.write(image.file.read())
     process_image_task.delay(
